@@ -58,7 +58,17 @@ describe Oystercard do
 
     oystercard.touch_in('Barbican')
 
-    expect(oystercard.station).to eq('Barbican')
+    expect(oystercard.entry_station).to eq('Barbican')
+  end
+
+  it 'can forget about the entry_station when touched out' do
+    oystercard = Oystercard.new(false)
+    oystercard.top_up(50)
+    oystercard.touch_in('Barbican')
+
+    oystercard.touch_out
+
+    expect(oystercard.entry_station).to eq(nil)
   end
 
 end

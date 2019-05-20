@@ -2,13 +2,12 @@ class Oystercard
   DEFAULT_MAX_BALANCE = 90
   DEFAULT_MIN_BALANCE = 1
 
-  attr_accessor :balance
-  attr_reader :station
+  attr_accessor :balance, :entry_station
 
   def initialize(in_journey = false)
     @balance = 0
     @in_journey = in_journey
-    @station = nil
+    @entry_station = nil
   end
 
   def top_up(amount)
@@ -22,11 +21,12 @@ class Oystercard
 
   def touch_in(station)
     raise "Card does not have the minimum balance loaded" if min_balance_not_met?
-    @station = station
+    @entry_station = station
     @in_journey = true
   end
 
   def touch_out
+    @entry_station = nil
     deduct(DEFAULT_MIN_BALANCE)
     @in_journey = false
   end
