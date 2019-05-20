@@ -35,6 +35,7 @@ describe Oystercard do
 
   it 'can touch in and change to being in journey' do
     oystercard = Oystercard.new(false)
+    oystercard.top_up(Oystercard::DEFAULT_MIN_BALANCE)
 
     oystercard.touch_in
 
@@ -45,6 +46,12 @@ describe Oystercard do
     oystercard = Oystercard.new(true)
     oystercard.touch_out
     expect(oystercard.in_journey?).to eq(false)
+  end
+
+  it 'will throw an error if there is less than the minimum balance' do
+    oystercard = Oystercard.new(false)
+
+    expect{oystercard.touch_in}.to raise_error("Card does not have the minimum balance loaded")
   end
 
 end

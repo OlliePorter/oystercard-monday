@@ -1,6 +1,6 @@
 class Oystercard
-
   DEFAULT_MAX_BALANCE = 90
+  DEFAULT_MIN_BALANCE = 1
 
   attr_accessor :balance
 
@@ -23,6 +23,8 @@ class Oystercard
   end
 
   def touch_in
+    raise "Card does not have the minimum balance loaded" if min_balance_not_met?
+
     @in_journey = true
   end
 
@@ -36,4 +38,7 @@ class Oystercard
     amount + @balance > DEFAULT_MAX_BALANCE
   end
 
+  def min_balance_not_met?
+    balance < DEFAULT_MIN_BALANCE
+  end
 end
