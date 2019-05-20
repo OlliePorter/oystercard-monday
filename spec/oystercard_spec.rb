@@ -54,4 +54,10 @@ describe Oystercard do
     expect{oystercard.touch_in}.to raise_error("Card does not have the minimum balance loaded")
   end
 
+  it 'will deduct the minimum fare amount from the balance when touching out' do
+    oystercard = Oystercard.new(true)
+    expect{oystercard.touch_out}
+      .to change{oystercard.balance}.by(-Oystercard::DEFAULT_MIN_BALANCE)
+  end
+
 end
