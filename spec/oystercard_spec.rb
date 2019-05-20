@@ -33,4 +33,12 @@ describe Oystercard do
     expect(oystercard.in_journey?).to eq(false)
   end
 
+  it 'can touch in and change to being in journey' do
+    oystercard = Oystercard.new(false)
+
+    oystercard.touch_in
+
+    expect(oystercard.in_journey?).to eq(true)
+  end
+
 end
