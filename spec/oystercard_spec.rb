@@ -13,4 +13,10 @@ describe Oystercard do
 
     expect(oystercard.balance).to eq(5)
   end
+
+  it 'raises an error when one stupud human tries to add more than the maximum balance' do
+    oystercard = Oystercard.new
+    expect{oystercard.top_up(Oystercard::DEFAULT_MAX_BALANCE + 1)}.to raise_error("NOPE")
+  end
+
 end
